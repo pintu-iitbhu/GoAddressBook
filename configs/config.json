@@ -1,0 +1,19 @@
+{
+  "name": "go_address_book",
+  "profiles": [
+    "test"
+  ],
+  "label": null,
+  "version": "28cfcae4bd19d39c17c469f1bcb3aa8088839176",
+  "state": null,
+  "propertySources": [
+    {
+      "name": "go_address_book",
+      "source": {
+        "service.name": "go_address_book",
+        "service.version": "0.0.1",
+        "locale": "en"
+      }
+    }
+  ]
+}

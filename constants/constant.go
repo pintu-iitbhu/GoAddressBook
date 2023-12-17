@@ -1,0 +1,38 @@
+package constants
+
+const (
+	EnvKey                = "BOOT_CUR_ENV"
+	DevEnvironment        = "dev"
+	DevConfigJsonFilePath = "configs/config.json"
+	Service               = "go_address_book"
+	Locale                = "locale"
+	AddressBookFilePath   = "repository/address-book.json"
+	EnTomlFilePath        = "i18n/cli/en.toml"
+	FrTomlFilePath        = "i18n/cli/fr.toml"
+	TomlFileFormat        = "toml"
+
+	Opening                = "Opening"
+	Actions                = "Actions"
+	List                   = "List"
+	Create                 = "Create"
+	SearchByPhoneNumber    = "SearchByPhoneNumber"
+	SearchByName           = "SearchByName"
+	Close                  = "Close"
+	UnknownChoice          = "UnknownChoice"
+	Closing                = "Closing"
+	ContactsListing        = "ContactsListing"
+	ContactAdding          = "ContactAdding"
+	FirstName              = "FirstName"
+	LastName               = "LastName"
+	Phone                  = "Phone"
+	Email                  = "Email"
+	Address                = "Address"
+	ContactAdded           = "ContactAdded"
+	PhoneNumber            = "PhoneNumber"
+	SearchByFullName       = "SearchByFullName"
+	RequestValidationError = "RequestValidationError"
+
+	PhoneNumberRegex = "^[+]?(?:[91]{2})?[0-9]{10}$"
+	EmailRegex       = "^[a-zA0-Z9._%+\\-]+@[a-zA0-Z9.\\-]+\\.[a-z]{2,4}$"
+	SalutationRegex  = "^(((S(h)?r(i|e+)|([MDS][rs])|(Master|Mister|Miss|Pandit|Pt|Prof|Rev|Rt|Hon|St|CA|Ma(d|')?(a)?m))[\\.]?[\\s])+)"
+)
