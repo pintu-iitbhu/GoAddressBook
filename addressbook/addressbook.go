@@ -3,6 +3,7 @@ package addressbook
 import (
 	"GoAddressBook/constants"
 	"GoAddressBook/models"
+	"GoAddressBook/utility"
 	"encoding/json"
 	"fmt"
 	"github.com/sagikazarmark/slog-shim"
@@ -103,8 +104,8 @@ func (ab *AddressBook) SearchByName(name string) []models.Contact {
 	ab.mutex.RLock()
 	defer ab.mutex.RUnlock()
 
-	names := strings.Split(name, " ")
-	nameKey := ab.generateNameKey(names[0], names[len(names)-1])
+	firstName, _, lastName := utility.GetFirstMiddleAndLastNamesFromFullName(name)
+	nameKey := ab.generateNameKey(firstName, lastName)
 	keys, found := ab.NameIndex[nameKey]
 	if !found {
 		return nil
@@ -135,6 +136,7 @@ func (ab *AddressBook) SearchByPhoneNumber(phoneNumber string) (models.Contact, 
 
 // generateKey generates a unique key for a contact based on first name, last name, and phone number
 func (ab *AddressBook) generateKey(firstName, lastName, phoneNumber string) string {
+
 	return fmt.Sprintf("%s-%s-%s", firstName, lastName, phoneNumber)
 }
 

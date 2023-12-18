@@ -13,6 +13,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/sagikazarmark/slog-shim"
 	"github.com/spf13/viper"
+	"time"
 )
 
 // Cli structure represents the command line interface
@@ -70,13 +71,13 @@ func (instance *Cli) Menu() {
 
 		switch choice {
 		case 0:
-			instance.Create()
+			instance.CreateContact()
 		case 1:
 			instance.GetContactDetailsByName()
 		case 2:
 			instance.GetContactDetailsByPhoneNumber()
 		case 3:
-			instance.List()
+			instance.ListContacts()
 		case 4:
 			quit = true
 		default:
@@ -88,44 +89,66 @@ func (instance *Cli) Menu() {
 	println(closingString)
 	_ = instance.Reader.Close()
 }
-func (instance *Cli) List() {
+func (instance *Cli) ListContacts() {
 	listingString, _ := instance.I18n.T(constants.ContactsListing, nil)
 	println(listingString)
-	for _, contact := range instance.Book.ListAllContacts() {
+	contacts := instance.Book.ListAllContacts()
+	if len(contacts) == 0 {
+		println("No contacts found in collection: ")
+		return
+	}
+	for _, contact := range contacts {
 		println(contact)
 		println("--------->")
 	}
 }
 
-// Create prompts the user to add a contact using the command line interface
-func (instance *Cli) Create() {
+// CreateContact Create prompts the user to add a contact using the command line interface
+func (instance *Cli) CreateContact() {
 	addingString, _ := instance.I18n.T(constants.ContactAdding, nil)
-	firstNameString, _ := instance.I18n.T(constants.FirstName, nil)
-	lastNameString, _ := instance.I18n.T(constants.LastName, nil)
+	firstNameString, _ := instance.I18n.T(constants.FullName, nil)
 	phoneNumber, _ := instance.I18n.T(constants.Phone, nil)
 	eMailAddress, _ := instance.I18n.T(constants.Email, nil)
 	addressDetails, _ := instance.I18n.T(constants.Address, nil)
+	street, _ := instance.I18n.T(constants.Street, nil)
+	city, _ := instance.I18n.T(constants.City, nil)
+	state, _ := instance.I18n.T(constants.State, nil)
+	zip, _ := instance.I18n.T(constants.Zip, nil)
+	country, _ := instance.I18n.T(constants.Country, nil)
 
+	fullName := instance.readLine(firstNameString)
+	firstName, _, lastName := utility.GetFirstMiddleAndLastNamesFromFullName(fullName)
 	println(addingString)
 	contact := models.Contact{
-		FirstName:    instance.readLine(firstNameString),
-		LastName:     instance.readLine(lastNameString),
+		FirstName:    firstName,
+		LastName:     lastName,
 		PhoneNumber:  instance.readLine(phoneNumber),
 		EmailAddress: instance.readLine(eMailAddress),
-		Addresses:    instance.readLine(addressDetails),
+		CreatedOn:    time.Now(),
 	}
+
+	println(addressDetails)
+	address := models.Address{
+		Type:    constants.AddressType,
+		Street:  instance.readLine(street),
+		City:    instance.readLine(city),
+		State:   instance.readLine(state),
+		Zip:     instance.readLine(zip),
+		Country: instance.readLine(country),
+	}
+	contact.Addresses = address
 
 	err := utility.RequestBodyValidator(contact)
 	if err != nil {
 		println("Requested data is invalid", "err", err)
-		println("------->")
+		println(constants.LineSeparator)
 		return
 	}
 
 	validationErr := instance.Validator.Struct(contact)
 	if validationErr != nil {
 		println("failed to validate request", "err: ", utility.ParseValidatorErrMessage(validationErr).Error())
-		println("------->")
+		println(constants.LineSeparator)
 		return
 	}
 	instance.Book.AddContact(contact)
@@ -137,22 +160,24 @@ func (instance *Cli) Create() {
 		constants.Address:     constants.Address,
 	})
 	println(addedString)
+	println(constants.LineSeparator)
 }
 
 func (instance *Cli) GetContactDetailsByName() {
-	searchByName, _ := instance.I18n.T(constants.SearchByFullName, nil)
+	searchByName, _ := instance.I18n.T(constants.FullName, nil)
 	name := instance.readLine(searchByName)
 	contacts := instance.Book.SearchByName(name)
 	if contacts == nil {
-		println("Contacts not found for User: ", name)
+		println("Contacts not found for User ", "Name:", name)
+		println(constants.LineSeparator)
 		return
 	}
-	println("List of contact details of user by name: ")
+	println("List of contact details of user by name,", "Name:", name)
 	for _, actualContact := range contacts {
 		actualContactByte, _ := json.Marshal(actualContact)
 		actualContactByteString := string(actualContactByte)
 		println(actualContactByteString)
-		println("------------->")
+		println(constants.LineSeparator)
 	}
 }
 
@@ -161,13 +186,14 @@ func (instance *Cli) GetContactDetailsByPhoneNumber() {
 	phone := instance.readLine(searchByPhone)
 	actualContact, found := instance.Book.SearchByPhoneNumber(phone)
 	if !found {
-		fmt.Println("Contact details not found on Phone Number: ", phone)
+		fmt.Println("Contact details not found on Phone Number,", "PhoneNumber: ", phone)
+		println(constants.LineSeparator)
 		return
 	}
 	actualContactByte, _ := json.Marshal(actualContact)
 	actualContactByteString := string(actualContactByte)
 	println(actualContactByteString)
-	println("------------->")
+	println(constants.LineSeparator)
 }
 
 // Function to read a line and handle errors

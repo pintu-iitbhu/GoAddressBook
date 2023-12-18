@@ -46,6 +46,11 @@ func NewValidator() *validator.Validate {
 		slog.Info("Error while registering custom validator func PhoneNumberFormatValidator %s\n", err.Error())
 		return nil
 	}
+	err = requestValidator.RegisterValidation("pinCodeFormat", PinCodeFormatValidator)
+	if err != nil {
+		slog.Info("Error while registering custom validator func PinCodeFormatValidator %s\n", err.Error())
+		return nil
+	}
 
 	return requestValidator
 }
@@ -99,4 +104,11 @@ func PhoneNumberFormatValidator(fl validator.FieldLevel) bool {
 	reg := regexp.MustCompile(constants.PhoneNumberRegex)
 	phoneNumber := reg.FindStringSubmatch(fieldValue)
 	return phoneNumber != nil
+}
+
+func PinCodeFormatValidator(fl validator.FieldLevel) bool {
+	fieldValue := fl.Field().String()
+	re := regexp.MustCompile(constants.PinCodeRegex)
+	pincodeValue := re.FindStringSubmatch(fieldValue)
+	return pincodeValue != nil && !strings.Contains(pincodeValue[0][3:], "000")
 }

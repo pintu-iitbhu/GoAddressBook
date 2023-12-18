@@ -1,70 +1,27 @@
 {
     "contacts": {
-        "Jane-Smith-555-5678": {
-            "first_name": "Jane",
-            "last_name": "Smith",
-            "phone_number": "555-5678",
-            "address": "456 Oak St"
-        },
-        "John-Doe-555-1234": {
-            "first_name": "John",
-            "last_name": "Doe",
-            "phone_number": "555-1234",
-            "address": "123 Main St"
-        },
-        "Mayank-Mayank-948278485784": {
-            "first_name": "Mayank",
-            "last_name": "Mayank",
-            "email_address": "kjdsaud@gmail.com",
-            "phone_number": "948278485784",
-            "address": "shjiudhfi dkiudhfiu sahfr"
-        },
-        "Pintu-Yadav-8804560520": {
-            "first_name": "Pintu",
-            "last_name": "Yadav",
-            "email_address": "pky@gmail.com",
-            "phone_number": "8804560520",
-            "address": "gandar chhapra saran"
-        },
-        "pintu yadav-skjdhud-76438768745": {
-            "first_name": "pintu yadav",
-            "last_name": "skjdhud",
-            "email_address": "shdhyg@gmail.com",
-            "phone_number": "76438768745",
-            "address": "ksdh jhdiuh"
-        },
-        "pintu-yadav-7387985385": {
+        "pintu-yadav-8804560520": {
             "first_name": "pintu",
             "last_name": "yadav",
-            "email_address": "sjhiu@gmail.com",
-            "phone_number": "7387985385",
-            "address": "jfdhifds khfdiush"
+            "email_address": "pky@gmail.com",
+            "phone_number": "8804560520",
+            "address": {
+                "type": "Personal",
+                "street": "damden neptunia",
+                "city": "bangaluru",
+                "state": "karnataka",
+                "zip": "560037",
+                "country": "india"
+            },
+            "created_on": "2023-12-18T17:03:43.2983326+05:30"
         }
     },
     "name_index": {
-        "jane-smith": [
-            "Jane-Smith-555-5678"
-        ],
-        "john-doe": [
-            "John-Doe-555-1234"
-        ],
-        "mayank-mayank": [
-            "Mayank-Mayank-948278485784"
-        ],
-        "pintu yadav-skjdhud": [
-            "pintu yadav-skjdhud-76438768745"
-        ],
         "pintu-yadav": [
-            "Pintu-Yadav-8804560520",
-            "pintu-yadav-7387985385"
+            "pintu-yadav-8804560520"
         ]
     },
     "phone_index": {
-        "555-1234": "John-Doe-555-1234",
-        "555-5678": "Jane-Smith-555-5678",
-        "7387985385": "pintu-yadav-7387985385",
-        "76438768745": "pintu yadav-skjdhud-76438768745",
-        "8804560520": "Pintu-Yadav-8804560520",
-        "948278485784": "Mayank-Mayank-948278485784"
+        "8804560520": "pintu-yadav-8804560520"
     }
 }

@@ -23,6 +23,7 @@ const (
 	ContactsListing        = "ContactsListing"
 	ContactAdding          = "ContactAdding"
 	FirstName              = "FirstName"
+	FullName               = "FullName"
 	LastName               = "LastName"
 	Phone                  = "Phone"
 	Email                  = "Email"
@@ -30,9 +31,18 @@ const (
 	ContactAdded           = "ContactAdded"
 	PhoneNumber            = "PhoneNumber"
 	SearchByFullName       = "SearchByFullName"
+	LineSeparator          = "---------------"
 	RequestValidationError = "RequestValidationError"
 
 	PhoneNumberRegex = "^[+]?(?:[91]{2})?[0-9]{10}$"
 	EmailRegex       = "^[a-zA0-Z9._%+\\-]+@[a-zA0-Z9.\\-]+\\.[a-z]{2,4}$"
 	SalutationRegex  = "^(((S(h)?r(i|e+)|([MDS][rs])|(Master|Mister|Miss|Pandit|Pt|Prof|Rev|Rt|Hon|St|CA|Ma(d|')?(a)?m))[\\.]?[\\s])+)"
+	PinCodeRegex     = "^([0-9]{6})$"
+
+	Country     = "Country"
+	Zip         = "Zip"
+	State       = "State"
+	City        = "City"
+	Street      = "Street"
+	AddressType = "Personal"
 )

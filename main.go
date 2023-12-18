@@ -15,7 +15,6 @@ func main() {
 		slog.Info("failed to load data from json file : ", err)
 		return
 	}
-
 	cliInstance, err := cli.NewCliInstance(bookInstance)
 	if err != nil {
 		slog.Info("Error while instancing command-line interface :", err)
